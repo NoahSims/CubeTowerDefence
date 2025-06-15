@@ -1,0 +1,69 @@
+{
+  "name": "TowerDefence",
+  "version": "1.0.0",
+  "sdkVersion": "6.3",
+  "appIcon": {
+    "path": "assets/icon.png"
+  },
+  "sourceFile": "src/TowerDefence.cpp",
+  "scriptFile": "binary/TowerDefence.wasm",
+  "imageAssets": [
+    {
+      "path": "assets/images/Castle_Blue.png",
+      "alias": "Castle_Blue.png",
+      "encoding": "ARGB6666"
+    },
+    {
+      "path": "assets/images/Banner_Horizontal.png",
+      "alias": "Banner_Horizont"
+    },
+    {
+      "path": "assets/images/grassTile.png",
+      "alias": "grassTile.png"
+    },
+    {
+      "path": "assets/images/Bridge.png",
+      "alias": "Bridge.png",
+      "encoding": "ARGB6666"
+    },
+    {
+      "path": "assets/images/Archer_Blue3.png",
+      "alias": "Archer_Blue",
+      "encoding": "ARGB6666"
+    },
+    {
+      "path": "assets/images/Goblin_House.png",
+      "alias": "Goblin_House",
+      "encoding": "ARGB6666"
+    },
+    {
+      "path": "assets/images/selection.png",
+      "alias": "selection.png",
+      "encoding": "ARGB6666"
+    },
+    {
+      "path": "assets/images/Torch_Red4.png",
+      "alias": "Torch_Red4.png",
+      "encoding": "ARGB6666"
+    }
+  ],
+  "soundAssets": [],
+  "appFlags": 0,
+  "language": "cpp",
+  "interpreter": "wasm",
+  "projectOptions": {
+    "cpp": {
+      "defines": "DUMMY_DEFINE=1;DUMMY_DEFINE2=2",
+      "flags": "-std=c++11 -Oz -flto -fno-exceptions -mexec-model=reactor -z stack-size=10240",
+      "compilerSettings": ",--initial-memory=65536,--export=run,--export=on_init,--strip-all,--lto-O3",
+      "includeFolders": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  },
+  "adhocDescription": "No description"
+}
