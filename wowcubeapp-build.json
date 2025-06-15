@@ -45,6 +45,11 @@
       "path": "assets/images/Torch_Red4.png",
       "alias": "Torch_Red4.png",
       "encoding": "ARGB6666"
+    },
+    {
+      "path": "assets/images/Tower_Blue.png",
+      "alias": "Tower_Blue.png",
+      "encoding": "ARGB6666"
     }
   ],
   "soundAssets": [],

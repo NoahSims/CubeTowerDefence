@@ -75,6 +75,8 @@ void TowerDefense::InitializeResources()
     this->archerAtlas->AddSprite(GfxObjects::archer, Cubios::Math::Rect2(0, 0, 80, 75));
     this->archerAtlas->AddSprite(GfxObjects::archerShoot, Cubios::Math::Rect2(81, 0, 80, 75));
 
+    this->Scene.CreateObjectWithID(GfxObjects::flameTower, new Sprite("Tower_Blue.png",Transform(120,120,0)));
+
     if (this->Module == mapInstance->getHomeModule()) {
         this->Scene.CreateObjectWithID(GfxObjects::castle, new Sprite("Castle_Blue.png",Transform(120,120,0)));
         this->Scene[GfxObjects::castle]->Transform.ScaleX = 50;
@@ -255,6 +257,18 @@ void TowerDefense::initializeSprites() {
     rtRightBuildBanner->AddCopy(bannerAtlas->Get(GfxObjects::bannerBM)->Copy())->SetPosition(96, 224);
     rtRightBuildBanner->AddCopy(bannerAtlas->Get(GfxObjects::bannerBM)->Copy())->SetPosition(160, 224);
     rtRightBuildBanner->Add(bannerAtlas->Get(GfxObjects::bannerBR))->SetPosition(224, 224);
+
+    this->Scene[GfxObjects::flameTower]->SetScale(55, 55);
+    rtRightBuildBanner->Add(this->Scene[GfxObjects::flameTower]->SetPosition(100, 120));
+
+    tLabel.SetContent("WIP");
+    tLabel.SetTransform(Transform(100, 70));
+    rtRightBuildBanner->Add(&tLabel);
+
+    tCost.SetContent("N/A");
+    tCost.SetTransform(Transform(100, 190));
+    rtRightBuildBanner->Add(&tCost);
+
     rtRightBuildBanner->End();
     this->Scene.CreateObjectWithID(GfxObjects::uiBannerR, rtRightBuildBanner);
 }
@@ -1072,8 +1086,8 @@ void TowerDefense::searchNextPath(int curModule, int curScreen, int fromDirectio
             msg.WriteInt(nextScreen.screen, 32);
             msg.WriteInt(curModule, 32);
             msg.WriteInt(curScreen, 32);
-            LOG_i("Printing msg log??");
-            msg.Print();
+            //LOG_i("Printing msg log??");
+            //msg.Print();
             this->SendNetworkMessage(Commands::cmd_generateNextPath, &msg);
         }
     }

@@ -31,6 +31,7 @@ enum GfxObjects
     archer=80,
     archerShoot,
     arrow,
+    flameTower,
     selectionBorder=90,
     groundScreen=200
 };
