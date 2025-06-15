@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "AppManager.h"
-#include "TowerDefence.h"
+#include "TowerDefense.h"
 
 using namespace Cubios;
 using namespace Cubios::Math;
@@ -14,29 +14,29 @@ using namespace Cubios::Gfx;
 //Applicaton initialization callback. Called once when CUB application starts
 void OnInit(Cubios::AppManager& appMgr) 
 {
-    TowerDefence* theApp = new TowerDefence();
+    TowerDefense* theApp = new TowerDefense();
 
-    appMgr.SetApplication(theApp,"cubeTowerDefence");
+    appMgr.SetApplication(theApp,"CubeTowerDefense");
 
     theApp->InitializeResources();
 }
 
 
-TowerDefence::TowerDefence()
+TowerDefense::TowerDefense()
 {
    this->gameState = GameState::gameShown;
 
    this->splashScreen = new Cubios::Splashscreen(this, Cubios::SplsParms::e_LeadersDataType::typeNumber);
 }
 
-TowerDefence::~TowerDefence() 
+TowerDefense::~TowerDefense() 
 { 
     this->Scene.DisposeAllObjects();
 
     if(this->splashScreen!=nullptr) delete this->splashScreen; 
 }
 
-void TowerDefence::InitializeResources()
+void TowerDefense::InitializeResources()
 {    
     //Initialize splash screen
     //this->initializeSplashscreen();
@@ -101,7 +101,7 @@ void TowerDefence::InitializeResources()
     this->SetTimer(Timers::startupTimer, 1000);
 }
 
-void TowerDefence::initializeSplashscreen()
+void TowerDefense::initializeSplashscreen()
 {
       //Initialize splashscreen
       /*
@@ -143,7 +143,7 @@ void TowerDefence::initializeSplashscreen()
         */
 }
 
-void TowerDefence::initializeSprites() {
+void TowerDefense::initializeSprites() {
     OffscreenRenderTarget* rt = new OffscreenRenderTarget(240,240,Cubios::GFX_PixelFormat_t::FORMAT_RGB565);
     rt->SetPosition(120, 120);
 
@@ -260,7 +260,7 @@ void TowerDefence::initializeSprites() {
 }
 
 //This callback is called every "tick" of cubeapp application loop
-void TowerDefence::on_Tick(uint32_t currentTime, uint32_t deltaTime)
+void TowerDefense::on_Tick(uint32_t currentTime, uint32_t deltaTime)
 {
     //tick splash screen
     //this->splashScreen->Tick(currentTime, deltaTime);
@@ -407,7 +407,7 @@ void TowerDefence::on_Tick(uint32_t currentTime, uint32_t deltaTime)
     }
 }
 
-void TowerDefence::sendAntToNeighbor(int curModule, int curScreen, int direction, int antId) {
+void TowerDefense::sendAntToNeighbor(int curModule, int curScreen, int direction, int antId) {
     Cubios::TOPOLOGY_faceletInfo_t nextScreen;
     Cubios::TOPOLOGY_getAdjacentFacelet(curModule, curScreen, UsableDirections[direction], &nextScreen);
     // if moving to screen within module
@@ -454,7 +454,7 @@ void TowerDefence::sendAntToNeighbor(int curModule, int curScreen, int direction
     }
 }
 
-void TowerDefence::deleteAnt(int antId) {
+void TowerDefense::deleteAnt(int antId) {
     LOG_i("Deleting ant %d", antId);
     if(find(antList.begin(), antList.end(), antId) == antList.end()) {
         LOG_i("SEVERE: atempting to delete enemy that has already been deleted - %d", antId);
@@ -468,7 +468,7 @@ void TowerDefence::deleteAnt(int antId) {
     updateTargetForArcher(screen);
 }
 
-void TowerDefence::antDeath(int antId) {
+void TowerDefense::antDeath(int antId) {
     antsForDeletionList.push_back(antId);
     Cubios::NetworkMessage msg;
     msg.Reset(true);
@@ -476,7 +476,7 @@ void TowerDefence::antDeath(int antId) {
 }
 
 //This callback is called every time device is about to render visuals. Use it for calling your rendering code.  
-void TowerDefence::on_Render(std::array<Cubios::Screen, 3>& screens)
+void TowerDefense::on_Render(std::array<Cubios::Screen, 3>& screens)
 {
     for(auto i = screens.begin(); i != screens.end(); ++i)
     {
@@ -648,7 +648,7 @@ void TowerDefence::on_Render(std::array<Cubios::Screen, 3>& screens)
     }
 }
 
-void TowerDefence::renderBridgeLayer(int screen) {
+void TowerDefense::renderBridgeLayer(int screen) {
     /*
     this->Scene.DisposeObjectWithID(GfxObjects::groundScreen + mapInstance->getScreenNum(this->Module, screen));
     OffscreenRenderTarget* rt = new OffscreenRenderTarget(240,240,Cubios::GFX_PixelFormat_t::FORMAT_ARGB6666);
@@ -707,7 +707,7 @@ void TowerDefence::renderBridgeLayer(int screen) {
 }
 
 /*
-void TowerDefence::drawRectangle(int direction) {
+void TowerDefense::drawRectangle(int direction) {
     switch (direction) {
     case 0: // LEFT
         Cubios::GFX_drawRectangle(0, 100, 120, 40, Cubios::Gfx::Colors::white);
@@ -728,12 +728,12 @@ void TowerDefence::drawRectangle(int direction) {
 */
 
 //The "physics" callback. Gets called recurrently with at least 33ms resolution or less depending on the load. 
-void TowerDefence::on_PhysicsTick(const std::array<Cubios::Screen, 3>& screens)
+void TowerDefense::on_PhysicsTick(const std::array<Cubios::Screen, 3>& screens)
 {
 }
 
 //This callback is called on programmable timer (if any)
-void TowerDefence::on_Timer(uint8_t timerID)
+void TowerDefense::on_Timer(uint8_t timerID)
 {
     switch(timerID)
     {
@@ -773,13 +773,13 @@ void TowerDefence::on_Timer(uint8_t timerID)
 }
 
 //The cube topology change callback. Gets called when cube is twisted and its topological desctiption has been changed
-void TowerDefence::on_Twist(const Cubios::TOPOLOGY_twistInfo_t& twist) 
+void TowerDefense::on_Twist(const Cubios::TOPOLOGY_twistInfo_t& twist) 
 {
     this->gameState = GameState::gameShown;
 }
 
 //The "inner network" callback. Gets called when WOWCube module receives a data packet from other module
-void TowerDefence::on_Message(uint32_t type, uint8_t* pkt, u32_t size) 
+void TowerDefense::on_Message(uint32_t type, uint8_t* pkt, u32_t size) 
 {
     LOG_i("Receiving msg: %d", type);
     NetworkMessage msg(pkt,size);
@@ -896,12 +896,12 @@ void TowerDefence::on_Message(uint32_t type, uint8_t* pkt, u32_t size)
 }
 
 //The external data transfer callback. Gets called when WOWCube module receives a data over BLE from an external source
-void TowerDefence::on_ExternalMessage(uint8_t* pkt, u32_t size) 
+void TowerDefense::on_ExternalMessage(uint8_t* pkt, u32_t size) 
 {
 }
 
 //Screen pat callback
-void TowerDefence::on_Pat(uint32_t count)
+void TowerDefense::on_Pat(uint32_t count)
 {
     LOG_i("Tap registered %d", count);
     Cubios::TOPOLOGY_place_t homePlace;
@@ -971,7 +971,7 @@ void TowerDefence::on_Pat(uint32_t count)
     }
 }
 
-void TowerDefence::sendBuildStateMsg(int newBuildState, int argMoney) {
+void TowerDefense::sendBuildStateMsg(int newBuildState, int argMoney) {
     Cubios::NetworkMessage msg;
     msg.Reset(true);
     buildState = newBuildState;
@@ -981,7 +981,7 @@ void TowerDefence::sendBuildStateMsg(int newBuildState, int argMoney) {
 }
 
 //This callback is called before the application quits
-void TowerDefence::on_Close() 
+void TowerDefense::on_Close() 
 {
 }
 
@@ -989,7 +989,7 @@ void sendNetworkMessage(NetworkMessage msg) {
     //this->SendNetworkMessage(msg);
 }
 
-void TowerDefence::searchNextPath(int curModule, int curScreen, int fromDirection, bool isAntGen) {
+void TowerDefense::searchNextPath(int curModule, int curScreen, int fromDirection, bool isAntGen) {
     // find valid paths
     int emergencyLoopDirection;
     vector<int> validDirections;
@@ -1081,7 +1081,7 @@ void TowerDefence::searchNextPath(int curModule, int curScreen, int fromDirectio
     //renderBridgeLayer(curScreen);
 }
 
-void TowerDefence::antForgePath(int curScreen, int direction) {
+void TowerDefense::antForgePath(int curScreen, int direction) {
     // add new path
     int modScreenNum = mapInstance->getScreenNum(this->Module, curScreen);
     mapInstance->modulePathMap[mapInstance->getPathNum(curScreen, direction)]->isActive = true;
@@ -1114,7 +1114,7 @@ void TowerDefence::antForgePath(int curScreen, int direction) {
     //renderBridgeLayer(curScreen);
 }
 
-void TowerDefence::nextPathReceived(int fromModule, int fromScreen, int curScreen) {
+void TowerDefense::nextPathReceived(int fromModule, int fromScreen, int curScreen) {
     LOG_i("Next Path Module %d; Scr = %d", this->Module, curScreen);
     int modScreenNum = mapInstance->getScreenNum(this->Module, curScreen);
     int8_t direction;
@@ -1149,7 +1149,7 @@ void TowerDefence::nextPathReceived(int fromModule, int fromScreen, int curScree
     //renderBridgeLayer(curScreen);
 }
 
-void TowerDefence::spawnAnt(int fromModule, int fromScreen, int curScreen, int argHealth) {
+void TowerDefense::spawnAnt(int fromModule, int fromScreen, int curScreen, int argHealth) {
     if(isScreenHill(curScreen)) {
 
         this->Scene.CreateObjectWithID(antCounter, antAtlas->Get(GfxObjects::goblin)->Copy());
@@ -1220,15 +1220,15 @@ void TowerDefence::spawnAnt(int fromModule, int fromScreen, int curScreen, int a
     }
 }
 
-bool TowerDefence::isScreenHill(int screen) {
+bool TowerDefense::isScreenHill(int screen) {
     return this->Module == mapInstance->getHillModule() && screen == mapInstance->getHillScreen();
 }
 
-bool TowerDefence::isScreenHome(int screen) {
+bool TowerDefense::isScreenHome(int screen) {
     return this->Module == mapInstance->getHomeModule() && screen == mapInstance->getHomeScreen();
 }
 
-void TowerDefence::updateTargetForArcher(int screen) {
+void TowerDefense::updateTargetForArcher(int screen) {
     if (!archerList[screen].isActive) return;
 
     for (int ant = 0; ant < antList.size(); ant++) {
@@ -1242,7 +1242,7 @@ void TowerDefence::updateTargetForArcher(int screen) {
     LOG_i("Archer %d targeting %d", screen, archerList[screen].antTarget);
 }
 
-void TowerDefence::shootAnt(int antId, int damage) {
+void TowerDefense::shootAnt(int antId, int damage) {
     dynamic_cast<AntSpriteAtlasElement*>(this->Scene[antId])->health -= damage;
     if (dynamic_cast<AntSpriteAtlasElement*>(this->Scene[antId])->health > 0) {
         // show enemy damaged
@@ -1254,7 +1254,7 @@ void TowerDefence::shootAnt(int antId, int damage) {
     }
 }
 
-int TowerDefence::directionOrdinalToDegrees(int direction) {
+int TowerDefense::directionOrdinalToDegrees(int direction) {
     LOG_i("Direction = %d", direction);
     switch (direction) {
         case(0): return 0; break;
@@ -1265,7 +1265,7 @@ int TowerDefence::directionOrdinalToDegrees(int direction) {
     }
 }
 
-void TowerDefence::damageBase(int damage) {
+void TowerDefense::damageBase(int damage) {
     this->baseHealth -= damage;
     if (this->baseHealth <= 0) {
         LOG_i("ENDING GAME: %d", this->baseHealth);
@@ -1278,7 +1278,7 @@ void TowerDefence::damageBase(int damage) {
     }
 }
 
-void TowerDefence::tracePath(int startModule, int startScreen, int startDirection) {
+void TowerDefense::tracePath(int startModule, int startScreen, int startDirection) {
     if (isScreenHome(startScreen)) {
         //found end, we're done
         LOG_i("tracePath found home");

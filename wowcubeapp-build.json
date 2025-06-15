@@ -1,12 +1,12 @@
 {
-  "name": "TowerDefence",
+  "name": "CubeTowerDefense",
   "version": "1.0.0",
   "sdkVersion": "6.3",
   "appIcon": {
     "path": "assets/icon.png"
   },
   "sourceFile": "src/TowerDefence.cpp",
-  "scriptFile": "binary/TowerDefence.wasm",
+  "scriptFile": "binary/TowerDefense.wasm",
   "imageAssets": [
     {
       "path": "assets/images/Castle_Blue.png",

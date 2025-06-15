@@ -244,11 +244,11 @@ class AntSpriteAtlasElement: public Cubios::Gfx::SpriteAtlasElement
         uint8_t damageFrames = 0;
 };
 
-class TowerDefence: public Cubios::Application 
+class TowerDefense: public Cubios::Application 
 {
 public:
-    TowerDefence();
-    virtual ~TowerDefence();
+    TowerDefense();
+    virtual ~TowerDefense();
 
     virtual void on_PhysicsTick(const std::array<Cubios::Screen, 3>& screens) override;
     virtual void on_Twist(const Cubios::TOPOLOGY_twistInfo_t& twist) override;
